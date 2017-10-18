@@ -9,8 +9,8 @@
  */
 void main (void)
 {
-  char status = 0;
   char cycles = 3;
+  char falling = 1;
   uint16_t values[3];
   
   // COM1A1, COM1A0 = 0; OC1A disconnected
@@ -32,7 +32,7 @@ void main (void)
     // check if input capture flag is set
     if (TIFR & (1 << ICF1)) {
       // detect rising edge
-      if (status == 0) {
+      if (falling == 0) {
         // write low byte
         values[cycles-1] = (0x00ff & ICR1L);
         // write high byte
@@ -42,7 +42,7 @@ void main (void)
         // null input capture flag
         TIFR = (1 << ICF1);        
         // detect falling edge
-        status = 1;
+        falling = 1;
         // decrement cycle
         cycles--;
       } else {
@@ -55,7 +55,7 @@ void main (void)
         // null input capture flag
         TIFR = (1 << ICF1);        
         // detect falling edge
-        status = 1;
+        falling = 1;
         // decrement cycle
         cycles--;      
       }
