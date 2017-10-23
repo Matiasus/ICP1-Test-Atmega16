@@ -7,7 +7,7 @@
  * @param  Void
  * @return Void
  */
-void main (void)
+int main (void)
 {
   // need 3 times for determining duty cycle
   //    ______          ______
@@ -68,4 +68,9 @@ void main (void)
       }
     }
   }
+  // calc duty cycle
+  uint16_t duty = (values[2]-values[1])/(values[2]-values[0])
+  
+  // return value
+  return 0;
 }
