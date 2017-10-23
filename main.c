@@ -9,8 +9,15 @@
  */
 void main (void)
 {
-  char cycles = 3;
-  char falling = 1;
+  // need 3 times for determining duty cycle
+  //    ______          ______
+  // __|@@@@@@|________|@@@@@@|_______
+  //   |      |        |
+  //   t1     t2      t3
+  uint8_t cycles = 3;
+  // start with falling edge
+  uint8_t falling = 1;
+  // storage values
   uint16_t values[3];
   
   // COM1A1, COM1A0 = 0; OC1A disconnected
