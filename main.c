@@ -69,7 +69,7 @@ int main (void)
     }
   }
   // calc duty cycle
-  uint16_t duty = (values[2]-values[1])/(values[2]-values[0])
+  uint16_t duty = (values[1]-values[0])/(values[2]-values[0])
   
   // return value
   return 0;
