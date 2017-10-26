@@ -36,32 +36,28 @@ volatile uint8_t falling = 1;
  */
 ISR(TIMER1_CAPT_vect)
 {
-  if (cycles < 3) {
-    // detect rising edge
-    if (falling == 0) {
-      // write low byte
-      times[cycles] = ICR1L;
-      // write high byte
-      times[cycles] |= (ICR1H << 8);
-      // falling edge trigger
-      TCCR1B |= (1 << ICES1);     
-      // detect falling edge
-      falling = 1;
-      // decrement cycle
-      cycles++;
-    } else {
-      // write low byte
-      times[cycles] = ICR1L;
-      // write high byte
-      times[cycles] |= (ICR1H << 8);
-      // falling edge trigger
-      TCCR1B &= ~(1 << ICES1);  
-      // detect falling edge
-      falling = 0;
-      // decrement cycle
-      cycles++;
-    }
+  // detect rising edge
+  if (falling == 0) {
+    // write low byte
+    times[cycles] = ICR1L;
+    // write high byte
+    times[cycles] |= (ICR1H << 8);
+    // falling edge trigger
+    TCCR1B |= (1 << ICES1);     
+    // detect falling edge
+    falling = 1;
+  } else {
+    // write low byte
+    times[cycles] = ICR1L;
+    // write high byte
+    times[cycles] |= (ICR1H << 8);
+    // falling edge trigger
+    TCCR1B &= ~(1 << ICES1);  
+    // detect falling edge
+    falling = 0;
   }
+    // increment cycle
+    cycles++;
 }
 
 /***
