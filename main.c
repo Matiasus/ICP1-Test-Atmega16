@@ -53,7 +53,7 @@ ISR(TIMER1_CAPT_vect)
     times[cycles] |= (ICR1H << 8);
     // raising edge trigger
     TCCR1B |= (1 << ICES1);  
-    // detect falling edge
+    // detect rising edge
     falling = 0;
   }
     // increment cycle
@@ -61,8 +61,7 @@ ISR(TIMER1_CAPT_vect)
 }
 
 /***
- * Inicializacia casovaca Timer1A
- * nastavenie frekvencie snimaneho impulzu
+ * @description Init Timer1A
  *
  * @param  Void
  * @return Void
@@ -108,8 +107,6 @@ void Timer1AInit(void)
  */
 int main (void)
 {
-  // duty cycle
-  //uint16_t duty;
   // string
   char str[20];
 
@@ -134,9 +131,8 @@ int main (void)
   sei();
  
   while (1) {
-    // calc duty cycle
-    //duty = (times[1]-times[0])/(times[2]-times[0]);
-
+    // stop after 3 cycles which will be 
+    // present important values for calculating duty cycle
     if (cycles > 2) {
       // disable global interrupts
       cli();
