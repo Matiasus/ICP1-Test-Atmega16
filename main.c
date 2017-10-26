@@ -43,7 +43,7 @@ ISR(TIMER1_CAPT_vect)
     // write high byte
     times[cycles] |= (ICR1H << 8);
     // falling edge trigger
-    TCCR1B |= (1 << ICES1);     
+    TCCR1B &= ~(1 << ICES1);    
     // detect falling edge
     falling = 1;
   } else {
@@ -51,8 +51,8 @@ ISR(TIMER1_CAPT_vect)
     times[cycles] = ICR1L;
     // write high byte
     times[cycles] |= (ICR1H << 8);
-    // falling edge trigger
-    TCCR1B &= ~(1 << ICES1);  
+    // raising edge trigger
+    TCCR1B |= (1 << ICES1);  
     // detect falling edge
     falling = 0;
   }
